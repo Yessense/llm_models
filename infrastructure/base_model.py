@@ -1,4 +1,5 @@
-from abc import ABC
+from abc import ABC, abstractmethod
+
 
 
 class BaseLLMModel(ABC):
@@ -13,5 +14,14 @@ class BaseLLMModel(ABC):
                  name: str = "Base Model"):
         self._name = name
         
+    @abstractmethod
     def _load(self) -> None:
         """Load model, tokenizer, etc"""
+
+    @abstractmethod
+    def generate(self, prompt: str) -> str:
+        """Generate text"""
+    
+    @abstractmethod
+    def score(self, option: str) -> float:
+        """Score one option"""
