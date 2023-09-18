@@ -43,8 +43,6 @@ class Vicuna(BaseLLMModel):
         self._load()
 
     def _load(self) -> None:
-        print("Starting loading")
-        print("loading model")
         self.model = AutoModelForCausalLM.from_pretrained(
             self.model_path,
             torch_dtype=torch.float16,
@@ -53,22 +51,18 @@ class Vicuna(BaseLLMModel):
         )
 
         self.model.eval()
-        print("loading tokenizer")
         self.tokenizer = AutoTokenizer.from_pretrained(
             self.model_path
         )
 
-        print("loading pipeline")
         self.pipe = pipeline(
             model=self.model, 
             tokenizer=self.tokenizer,
             task='text-generation',
             max_new_tokens=self.max_new_tokens
         )
-        print("Loading is done!")
         
     def generate(self, promt: str) -> str:
-        print(promt)
         output = self.pipe(promt)[0]['generated_text']
         return output
 
