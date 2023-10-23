@@ -1,26 +1,16 @@
-To run llama model:
-```bash
-docker build -f models/llama/dockerfile -t llama:latest .
-```
+# Docker containers for LLMs
 
-```
-docker run --gpus all -it --rm --name akorchemnyi.llama -p 8080:8080 llama:latest  
-```
+## Models
+There are several aviliable models to run
+1. vicuna7b
+2. vicuna13b
+3. vicuna33b_5bit (quantized to 5bit)
 
-To run llama2 model:
+To build docker image with specific model one need to run script
 ```bash
-docker build -f models/llama2/dockerfile -t llama2:latest .
+./build.sh --model model_name
 ```
-
+To run container with model one need to run almoust the same script
 ```bash
-docker run --gpus all -it --rm --name ampiro.llama2 -p 8080:8080 llama2:latest  
-```
-
-To run Vicuna model:
-```bash
-docker build -f models/vicuna/dockerfile -t vicuna:latest .
-```
-
-```bash
-docker run --gpus all -it --rm --name ampiro.vicuna -p 8080:8080 vicuna:latest  
+./run.sh --model model_name
 ```

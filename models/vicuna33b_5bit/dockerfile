@@ -22,10 +22,11 @@ EXPOSE 8080
 
 RUN mkdir -p ~/${PROJECT_NAME}
 WORKDIR ~/${PROJECT_NAME}
-COPY models/llama2/requirements.txt .
+
+COPY models/vicuna33b_5bit/requirements.txt .
 RUN pip install -r requirements.txt
 
 COPY infrastructure infrastructure/
-COPY models/llama2/ .
+COPY models/vicuna33b_5bit/ .
 
 ENTRYPOINT ["python3","-m", "server"]

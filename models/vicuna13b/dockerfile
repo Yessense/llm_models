@@ -22,12 +22,11 @@ EXPOSE 8080
 
 RUN mkdir -p ~/${PROJECT_NAME}
 WORKDIR ~/${PROJECT_NAME}
-COPY models/vicuna/requirements.txt .
+
+COPY models/vicuna13b/requirements.txt .
 RUN pip install -r requirements.txt
 
 COPY infrastructure infrastructure/
-COPY models/vicuna/ .
-
-RUN python3 -m download_model
+COPY models/vicuna13b/ .
 
 ENTRYPOINT ["python3","-m", "server"]

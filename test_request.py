@@ -8,7 +8,8 @@ promt = """
     How would you move a red apple from the table to the drawer?
         
 """
-data = {'prompt': promt}
-print(requests.post(url, json=data).json()['output'])
 
 
+if __name__ == "__main__":
+    data = {'prompt': promt}
+    print(requests.post(url, json=data).json()['output'])

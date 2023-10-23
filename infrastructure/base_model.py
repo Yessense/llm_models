@@ -1,5 +1,25 @@
 from abc import ABC, abstractmethod
+from dataclasses import dataclass
+from typing import Any, List, Optional
+import torch
 
+
+@dataclass
+class BaseInput(ABC):
+    text: Optional[str] = None
+
+@dataclass
+class ScoringInput(BaseInput):
+    text: Optional[str] = None
+    options: Optional[List[str]] = None
+
+@dataclass
+class BaseOutput(ABC):
+    text: Optional[str] = None
+
+@dataclass
+class ScoringOutput(ABC):
+    scores: Optional[torch.Tensor] = None
 
 
 class BaseLLMModel(ABC):
