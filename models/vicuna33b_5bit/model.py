@@ -24,7 +24,7 @@ class Vicuna33B(BaseLLMModel):
         )
 
     def generate(self, text: str, **kwargs) -> str:
-        output = self.llm(text)
+        output = self.llm(text).text
         return output
 
     def score(self, option: str) -> float:

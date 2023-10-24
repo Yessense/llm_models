@@ -34,14 +34,13 @@ class Vicuna13B(BaseLLMModel):
             "text-generation", model=self.model, tokenizer=self.tokenizer
         )
 
-    def generate(self, text: str, **kwargs) -> BaseOutput:
+    def generate(self, text: str, **kwargs) -> str:
         output = self.generation_pipeline(
             text,
             do_sample=False,
             return_full_text=False,
             max_new_tokens=self.max_new_tokens,
-        )
-        output = BaseOutput(output[0]["generated_text"])
+        )[0]["generated_text"]
         return output
 
     def score_text(self, inputs: ScoringInput, option_start: str = "\n", **kwargs) -> Any:
