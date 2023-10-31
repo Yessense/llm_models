@@ -1,5 +1,12 @@
 #!/bin/bash
 
+unified_build(){
+    model_name=$1
+    echo "Building image for model $model"
+    docker build -f models/$model/dockerfile -t $model:latest .
+}
+
+
 while [[ "$#" -gt 0 ]]; do
     case $1 in
         -m|--model) model="$2"; shift ;;
@@ -8,25 +15,26 @@ while [[ "$#" -gt 0 ]]; do
     shift
 done
 
+
 case $model in 
     vicuna7b)
-    echo "Building image for model Vicuna7b"
-    docker build -f models/vicuna7b/dockerfile -t vicuna7b:latest .
+    unified_build $model
     ;;
 
     vicuna13b)
-    echo "Building image for model Vicuna13b"
-    docker build -f models/vicuna13b/dockerfile -t vicuna13b:latest .
+    unified_build $model
     ;;
     
     vicuna33b_5bit)
-    echo "Building image for model Vicuna33b_5bit"
-    docker build -f models/vicuna13b/dockerfile -t vicuna33b_5bit:latest .
+    unified_build $model
     ;;
 
     llama2)
-    echo "Building image for model LLaMA"
-    docker build -f models/llama2/dockerfile -t llama2:latest .
+    unified_build $model
+    ;;
+
+    minigpt4)
+    unified_build $model
     ;;
 
     *)

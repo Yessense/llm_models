@@ -14,3 +14,11 @@ To run container with model one need to run almoust the same script
 ```bash
 ./run.sh --model model_name
 ```
+
+You can run model on specific gpu by passing "--gpu_id" in run.sh
+```bash
+./run.sh --model minigpt4 --gpu_id "device=1"    # running model on cuda:1
+./run.sh --model minigpt4 --gpu_id "device=0,1"  # running model on cuda:0 and 1
+./run.sh --model minigpt4 --gpu_id "all"         # running model on all avilable gpus
+./run.sh --model minigpt4                        # by default --gpu_id is set to "all"
+```
