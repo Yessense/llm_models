@@ -7,6 +7,10 @@ from fastapi.responses import StreamingResponse
 from model import Vicuna13B
 
 
+class Item(BaseModel):
+        text: str
+        image: str
+
 
 if __name__ == "__main__":
     import argparse
@@ -19,9 +23,6 @@ if __name__ == "__main__":
         num_devices=args.num_devices,
         max_new_tokens=args.max_new_tokens
     )
-    
-    class Item(BaseModel):
-        text: str
 
     app = FastAPI(debug=True)
 

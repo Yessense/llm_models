@@ -7,12 +7,13 @@ from fastapi.responses import StreamingResponse
 from model import Vicuna33B
 
 
+class Item(BaseModel):
+        text: str
+        image: str
+
 
 if __name__ == "__main__":
     model = Vicuna33B()
-    
-    class Item(BaseModel):
-        text: str
 
     app = FastAPI(debug=True)
 

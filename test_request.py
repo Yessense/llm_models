@@ -12,12 +12,11 @@ def main():
     
     data = {"text": promt, "image": encoded_string}
     
-    request = requests.post(url+"/generate", json=data)
-    
-    print(request.json())
-    
+    request = requests.post(url+"/generate", json=data).json()
     model_name = requests.get(url+"/name").json()
-    print(f"Model name {model_name}")
+    
+    print(request)
+    print(model_name)
 
 if __name__ == "__main__":
     main()

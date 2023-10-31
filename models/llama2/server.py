@@ -7,6 +7,10 @@ from fastapi.responses import StreamingResponse
 from model import LLaMA2
 
 
+class Item(BaseModel):
+        text: str
+        image: str
+
 
 if __name__ == "__main__":
     import argparse
@@ -17,9 +21,6 @@ if __name__ == "__main__":
 
     model = LLaMA2(device=args.device,
                   model_size=args.model_size)
-
-    class Item(BaseModel):
-        text: str
 
     app = FastAPI(debug=True)
 

@@ -15,8 +15,6 @@ class Item(BaseModel):
         image: str
 
 
-
-
 if __name__ == "__main__":
     print("Installing model dependencies")
     model_install_minigpt()
