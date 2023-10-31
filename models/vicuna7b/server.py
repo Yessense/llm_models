@@ -19,14 +19,17 @@ if __name__ == "__main__":
                   model_size=args.model_size)
 
     class Item(BaseModel):
-        prompt: str
+        text: str
 
     app = FastAPI(debug=True)
 
     @app.post('/generate')
     def generate_plan(item: Item):
-        output = model.generate(item.prompt)
-        return {'output': output}
+        text = model.generate(item.text)
+        return {'text': text}
 
-
+    @app.get("/name")
+    def get_model_name():
+        return {"name": model.name}
+    
     uvicorn.run(app, host='0.0.0.0', port=8080)
