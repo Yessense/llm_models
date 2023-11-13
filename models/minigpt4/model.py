@@ -14,13 +14,10 @@ from minigpt4.common.registry import registry
 from MiniGPT4Chat import MiniGPT4Chat
 
 
-
-
-
 @dataclass
 class Minigpt4Input:
     text: Optional[str] = None
-    image: Image.Image = None
+    image: Optional[Image.Image] = None
 
 
 class MiniGPT4:
