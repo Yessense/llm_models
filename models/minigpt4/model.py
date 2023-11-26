@@ -18,6 +18,7 @@ from MiniGPT4Chat import MiniGPT4Chat
 class Minigpt4Input:
     text: Optional[str] = None
     image: Optional[Image.Image] = None
+    images: Optional[list[Image.Image]] = None
 
 
 class MiniGPT4:
@@ -35,7 +36,7 @@ class MiniGPT4:
         # ---------------- Creating model class ----------------
         parser = argparse.ArgumentParser(description="")
         parser.add_argument('--cfg-path', help='')
-        parser.add_argument('--options', nargs="+",help='')
+        parser.add_argument('--options', nargs="+", help='')
         parser.add_argument('--gpu-id', default=0, help='')
         args = parser.parse_args(f" --cfg-path {MOUNTED_FOULDER}/MiniGPT-4/eval_configs/minigpt4_eval.yaml".split())
 
@@ -56,8 +57,12 @@ class MiniGPT4:
     def generate(self, inputs: Minigpt4Input) -> str:
         self.minigpt4.reset_history()
         
+        if inputs.images is not None:
+            self.minigpt4.upload_images(inputs.images)
+        
         if inputs.image is not None:
             self.minigpt4.upload_img(inputs.image)
+            
         self.minigpt4.ask(inputs.text)
         out, _ = self.minigpt4.answer(
             num_beams=self._num_beams,

@@ -17,9 +17,21 @@ def model_install_minigpt():
     vicuna_space = "Vision-CAIR"
     vicuna_id = "vicuna"
     vicuna_repo_id = f"{vicuna_space}/{vicuna_id}"
-    chkpt_foulder = f'{default_cache_dir}/pretrained_minigpt4.pth'
+    chkpt_file = f'{default_cache_dir}/pretrained_minigpt4.pth'
     
     # ---------------- Downloading models ----------------
+    # if Path(f"{default_cache_dir}/MiniGPT-4").is_dir():
+    #     os.system(f"rm -r {default_cache_dir}/MiniGPT-4")
+    
+    # if Path(f"{default_cache_dir}/models--{vicuna_space}--{vicuna_id}").is_dir():
+    #     os.system(f"rm -r {default_cache_dir}/models--{vicuna_space}--{vicuna_id}")
+    
+    # if Path(f"{chkpt_foulder}").is_dir():
+    #     os.system(f"rm -r {chkpt_foulder}")
+    # os.system(f"rm -r {default_cache_dir}")
+    # os.system(f'mkdir {default_cache_dir}')
+    # return 
+    
     if not Path(f"{default_cache_dir}/MiniGPT-4").is_dir():
         print(f"[INFO] Clonning Minigpt4 repo in {default_cache_dir}/MiniGPT-4")
         os.system(f"git clone https://github.com/Vision-CAIR/MiniGPT-4.git {default_cache_dir}/MiniGPT-4")
@@ -27,17 +39,17 @@ def model_install_minigpt():
         print(f"[INFO] NOT clonning Minigpt4 repo in {default_cache_dir}/MiniGPT-4. Foulder already exist")
         
     if not Path(f"{default_cache_dir}/models--{vicuna_space}--{vicuna_id}").is_dir():
-        print(f"[INFO] Clonning Minigpt4 repo in {default_cache_dir}/models--{vicuna_space}--{vicuna_id}")
+        print(f"[INFO] Clonning LLM Model repo in {default_cache_dir}/models--{vicuna_space}--{vicuna_id}")
         os.system(f"git lfs clone https://huggingface.co/{vicuna_repo_id} {default_cache_dir}/models--{vicuna_space}--{vicuna_id}")
     else:
-        print(f"[INFO] NOT clonning Minigpt4 repo in {default_cache_dir}/models--{vicuna_space}--{vicuna_id}. Foulder already exist")
-        
-    if not Path(chkpt_foulder).is_file():
-        print(f"[INFO] Clonning Minigpt4 repo in {chkpt_foulder}")
-        Path(chkpt_foulder).mkdir(parents=True)
-        gdown.download("https://drive.google.com/file/d/1a4zLvaiDBr-36pasffmgpvH5P7CKmpze/view?usp=share_link", chkpt_foulder, fuzzy=True)
+        print(f"[INFO] NOT clonning LLM Model repo in {default_cache_dir}/models--{vicuna_space}--{vicuna_id}. Foulder already exist")
+    
+    if not Path(chkpt_file).exists():
+        print(f"[INFO] Clonning Minigpt4 Projection Layer weigths in {chkpt_file}")
+        # Path(default_cache_dir).mkdir(parents=True)
+        gdown.download("https://drive.google.com/file/d/1a4zLvaiDBr-36pasffmgpvH5P7CKmpze/view?usp=share_link", chkpt_file, fuzzy=True)
     else:
-        print(f"[INFO] NOT clonning Minigpt4 repo in {chkpt_foulder}. Foulder already exist")
+        print(f"[INFO] NOT clonning Minigpt4 Projection Layer weigths in {chkpt_file}. Foulder already exist")
     
     
     # ---------------- Changing model chkpts paths in config ----------------

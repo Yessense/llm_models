@@ -28,7 +28,7 @@ class MiniGPT4Chat:
             self.conv.append_message(self.conv.roles[0], text)
 
     def answer(self, max_new_tokens=300, num_beams=1, min_length=1, top_p=0.9,
-            repetition_penalty=1.0, length_penalty=1, temperature=1.0, max_length=2000):
+            repetition_penalty=1.0, length_penalty=1, temperature=0.0, max_length=3500):
         self.conv.append_message(self.conv.roles[1], None)
         embs = self.get_context_emb(self.img_list)
 
@@ -78,6 +78,24 @@ class MiniGPT4Chat:
         image_emb, _ = self.model.encode_img(image)
         self.img_list.append(image_emb)
         self.conv.append_message(self.conv.roles[0], "<Img><ImageHere></Img>")
+        msg = "Received."
+        return msg
+
+    def upload_images(self, images):
+        for image in images:
+            if isinstance(image, str):  # is a image path
+                raw_image = Image.open(image).convert('RGB')
+                image = self.vis_processor(raw_image).unsqueeze(0).to(self.device)
+            elif isinstance(image, Image.Image):
+                raw_image = image
+                image = self.vis_processor(raw_image).unsqueeze(0).to(self.device)
+            elif isinstance(image, torch.Tensor):
+                if len(image.shape) == 3:
+                    image = image.unsqueeze(0)
+                image = image.to(self.device)
+            image_emb, _ = self.model.encode_img(image)
+            self.img_list.append(image_emb)
+        
         msg = "Received."
         return msg
 
