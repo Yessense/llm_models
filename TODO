@@ -1,0 +1,3 @@
+- check deps and docker file base image (pytorch 2.0.0 -> 2.1.0)
+- fix q-former downloading
+- fix git lfs downloading
