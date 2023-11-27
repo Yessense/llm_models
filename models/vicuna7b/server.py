@@ -7,8 +7,9 @@ from fastapi.responses import StreamingResponse
 from model import Vicuna
 from typing import Optional
 
+
 class Item(BaseModel):
-        text: Optional[str] = None
+        prompt: Optional[str] = None
         image: Optional[str] = None
 
 
@@ -26,7 +27,7 @@ if __name__ == "__main__":
 
     @app.post('/generate')
     def generate_plan(item: Item):
-        text = model.generate(item.text)
+        text = model.generate(item.prompt)
         return {'text': text}
 
     @app.get("/name")
