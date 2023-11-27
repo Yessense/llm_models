@@ -27,7 +27,9 @@ if __name__ == "__main__":
 
     @app.post('/generate')
     def generate_plan(item: Item):
+        print(f"-------------LLM INPUT-------------\n{item.prompt}")
         text = model.generate(item.prompt)
+        print(f"-------------LLM OUTPUT-------------\n{text}")
         return {'text': text}
 
     @app.get("/name")
