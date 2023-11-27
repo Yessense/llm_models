@@ -5,11 +5,11 @@ from fastapi import FastAPI, Request
 from fastapi.responses import StreamingResponse
 
 from model import Vicuna
-
+from typing import Optional
 
 class Item(BaseModel):
-        text: str
-        image: str
+        text: Optional[str] = None
+        image: Optional[str] = None
 
 
 if __name__ == "__main__":
